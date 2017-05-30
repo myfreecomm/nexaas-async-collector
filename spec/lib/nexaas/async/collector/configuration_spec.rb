@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Nexaas::Async::Collector::Configuration do
   it 'instantiates object with default values' do

@@ -1,5 +1,8 @@
+require 'redis-namespace'
 require "nexaas/async/collector/engine"
 require "nexaas/async/collector/configuration"
+require "nexaas/async/collector/in_memory_storage"
+require "nexaas/async/collector/result"
 
 module Nexaas
   module Async

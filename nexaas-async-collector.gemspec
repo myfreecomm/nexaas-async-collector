@@ -18,8 +18,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.2"
   s.add_dependency "sidekiq", ">= 4.2"
+  s.add_dependency "redis-namespace", "1.5.2"
 
   s.add_development_dependency "sqlite3", "1.3.13"
   s.add_development_dependency "rspec-rails", "3.6.0"
   s.add_development_dependency "appraisal", "2.2.0"
+  s.add_development_dependency "fakeredis", "0.6.0"
+  s.add_development_dependency "byebug", "9.0.6"
 end
