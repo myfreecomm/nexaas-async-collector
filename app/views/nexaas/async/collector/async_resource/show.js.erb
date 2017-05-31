@@ -1,0 +1,4 @@
+<% if @result.content_is_ready? %>
+  $('#js-nexaas-async-collector').parent().append("<%= escape_javascript(@result.content.html_safe) %>");
+  clearInterval(window.nexaas_async_interval);
+<% end %>

@@ -5,9 +5,9 @@ module Nexaas
 
         attr_reader :connection, :namespace
 
-        def initialize(url, namespace=nil)
-          @connection ||= Redis.new(url: url)
-          @namespace ||= Redis::Namespace.new(namespace, redis: connection) if namespace
+        def initialize
+          @connection ||= Redis.new(url: redis_url)
+          @namespace ||= Redis::Namespace.new(redis_namespace, redis: connection) if redis_namespace
         end
 
         def get(key)
@@ -23,6 +23,14 @@ module Nexaas
 
         def storage
           @namespace || @connection
+        end
+
+        def redis_url
+          Nexaas::Async::Collector.configuration.redis_url
+        end
+
+        def redis_namespace
+          Nexaas::Async::Collector.configuration.redis_namespace
         end
 
       end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Nexaas::Async::Collector::InMemoryStorage do
   let(:redis) { Redis.new }
-  subject { described_class.new('redis://test.local') }
+  subject { described_class.new }
 
   describe "#get" do
     before { subject.set("foo", "bar") }

@@ -1,0 +1,10 @@
+<script type="text/javascript" id="js-nexaas-async-collector">
+  var requestContent = function() {
+    $.ajax({
+      url: '<%= Rails.application.routes.url_helpers.nexaas_async_collect_path(@collector_unique_id) %>',
+      dataType: 'script'
+    })
+  }
+
+  window.nexaas_async_interval = setInterval(requestContent, 2000);
+</script>
