@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "redis-namespace", "1.5.2"
 
   s.add_development_dependency "rspec"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "3.6.0"
   s.add_development_dependency "appraisal", "2.2.0"
   s.add_development_dependency "fakeredis", "0.6.0"

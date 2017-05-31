@@ -1,17 +1,33 @@
 require 'rails_helper'
 
 describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
-  before { allow(controller).to receive(:current_nac_resource).and_return(double(id: 123)) }
-
   describe "GET show" do
     it 'instantiates a new result object' do
-      xhr_request :get, :show, id: '12345'
+      allow(controller).to receive(:current_user) { double(id: 1234) }
+      xhr_request :get, :show, id: 'abcde'
       expect(assigns(:result)).to be_kind_of(Nexaas::Async::Collector::Result)
     end
 
-    it 'instantiates the result object with correct data' do
-      expect(Nexaas::Async::Collector::Result).to receive(:new).with(123, '12345')
-      xhr_request :get, :show, id: '12345'
+    context "when scope configuration is as default" do # invokes current_user method
+      it 'instantiates the result object with correct data' do
+        allow(controller).to receive(:current_user) { double(id: 1234) }
+        expect(Nexaas::Async::Collector::Result).to receive(:new).with(1234, 'abcde')
+        xhr_request :get, :show, id: 'abcde'
+      end
+    end
+
+    context "when scope configuration is as default" do
+      before do
+        Nexaas::Async::Collector.configure do |c|
+          c.scope = :current_resource
+        end
+      end
+
+      it 'instantiates the result object with correct data' do
+        allow(controller).to receive(:current_resource) { double(id: 1234) }
+        expect(Nexaas::Async::Collector::Result).to receive(:new).with(1234, 'abcde')
+        xhr_request :get, :show, id: 'abcde'
+      end
     end
   end
 end

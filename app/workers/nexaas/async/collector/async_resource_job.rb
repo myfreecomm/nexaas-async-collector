@@ -7,8 +7,18 @@ module Nexaas
         sidekiq_options queue: :high_fast
 
         def perform(collector_id, unique_id, klass_name, klass_method, args=[])
-          content = klass_name.send(klass_method, unique_id, *args)
+          content = call_for_method(klass_name, klass_method, args)
           Persist.save(unique_id, collector_id, content)
+        end
+
+        private
+
+        def call_for_method(klass_name, klass_method, args=[])
+          if args.any?
+            klass_name.to_s.constantize.send(klass_method, *args)
+          else
+            klass_name.to_s.constantize.send(klass_method)
+          end
         end
       end
     end
