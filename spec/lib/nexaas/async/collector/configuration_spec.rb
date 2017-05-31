@@ -5,6 +5,8 @@ describe Nexaas::Async::Collector::Configuration do
     object = described_class.new
     expect(object.redis_url).to eq(nil)
     expect(object.redis_namespace).to eq('nexaas_async')
+    expect(object.scope).to eq(:current_user)
+    expect(object.parent_controller).to eq('::ActionController::Base')
   end
 
   context 'when REDIS_URL env variable is set' do
@@ -14,7 +16,6 @@ describe Nexaas::Async::Collector::Configuration do
     it 'uses REDIS_URL variable' do
       object = described_class.new
       expect(object.redis_url).to eq('redis://test.local')
-      expect(object.redis_namespace).to eq('nexaas_async')
     end
   end
 end
