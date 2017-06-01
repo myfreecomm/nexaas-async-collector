@@ -7,3 +7,5 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/Gemfile.lock
 .byebug_history
+.ruby-version
+.ruby-gemset
