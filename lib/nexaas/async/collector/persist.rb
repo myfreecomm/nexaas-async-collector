@@ -3,13 +3,13 @@ module Nexaas
     module Collector
       class Persist
         class << self
-          def save(unique_id, key, value)
-            storage.set(key, content(unique_id, value))
+          def save(user_id, key, value)
+            storage.set(key, content(user_id, value))
           end
 
-          def content(unique_id, value)
+          def content(user_id, value)
             {
-              'unique_id' => unique_id,
+              'user_id' => user_id,
               'content' => value
             }.to_json
           end

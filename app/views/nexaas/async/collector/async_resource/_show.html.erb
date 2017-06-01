@@ -1,7 +1,7 @@
 <script type="text/javascript" id="js-nexaas-async-collector">
   var requestContent = function() {
     $.ajax({
-      url: '<%= Rails.application.routes.url_helpers.nexaas_async_collect_path(@collector_unique_id) %>',
+      url: '<%= Rails.application.routes.url_helpers.nexaas_async_collect_path(@collector_user_id) %>',
       dataType: 'script'
     })
   }

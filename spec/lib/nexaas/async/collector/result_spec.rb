@@ -3,10 +3,10 @@ require "rails_helper"
 describe Nexaas::Async::Collector::Result do
   let(:redis) { Redis.new }
   let(:not_ready_content) {
-    { 'unique_id' => 1892, 'content' => nil }.to_json
+    { 'user_id' => 1892, 'content' => nil }.to_json
   }
   let(:ready_content) {
-    { 'unique_id' => 1893, 'content' => '<html></html>' }.to_json
+    { 'user_id' => 1893, 'content' => '<html></html>' }.to_json
   }
 
   before do
@@ -17,13 +17,13 @@ describe Nexaas::Async::Collector::Result do
 
   describe "#content_is_ready?" do
     context "when content is ready" do
-      context "when unique_id is correctly" do
+      context "when user_id is correctly" do
         subject { described_class.new(1893, 'foo-ready') }
 
         it { expect(subject.content_is_ready?).to be_truthy }
       end
 
-      context "when unique_id is not correctly" do
+      context "when user_id is not correctly" do
         subject { described_class.new(1892, 'foo-ready') }
 
         it { expect(subject.content_is_ready?).to be_falsy }
@@ -31,13 +31,13 @@ describe Nexaas::Async::Collector::Result do
     end
 
     context "when content is not ready" do
-      context "when unique_id is correctly" do
+      context "when user_id is correctly" do
         subject { described_class.new(1892, 'foo-not-ready') }
 
         it { expect(subject.content_is_ready?).to be_falsy }
       end
 
-      context "when unique_id is not correctly" do
+      context "when user_id is not correctly" do
         subject { described_class.new(1893, 'foo-not-ready') }
 
         it { expect(subject.content_is_ready?).to be_falsy }
@@ -47,13 +47,13 @@ describe Nexaas::Async::Collector::Result do
 
   describe "#content" do
     context "when content is ready" do
-      context "when unique_id is correctly" do
+      context "when user_id is correctly" do
         subject { described_class.new(1893, 'foo-ready') }
 
         it { expect(subject.content).to eq('<html></html>') }
       end
 
-      context "when unique_id is not correctly" do
+      context "when user_id is not correctly" do
         subject { described_class.new(1892, 'foo-ready') }
 
         it { expect(subject.content).to be_nil }
@@ -61,13 +61,13 @@ describe Nexaas::Async::Collector::Result do
     end
 
     context "when content is not ready" do
-      context "when unique_id is correctly" do
+      context "when user_id is correctly" do
         subject { described_class.new(1892, 'foo-not-ready') }
 
         it { expect(subject.content).to be_nil }
       end
 
-      context "when unique_id is not correctly" do
+      context "when user_id is not correctly" do
         subject { described_class.new(1893, 'foo-not-ready') }
 
         it { expect(subject.content).to be_nil }

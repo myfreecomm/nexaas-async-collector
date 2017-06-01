@@ -1,6 +1,6 @@
 # Content is stored in the database as the following JSON:
 # {
-#   'unique_id' => 'unique_id',
+#   'user_id' => 'user_id',
 #   'content' => 'generated content'
 # }
 # The content is scoped by user, so any other user who discover the key (id) of the content, will not be able
@@ -12,10 +12,10 @@ module Nexaas
     module Collector
       class Result
 
-        attr_reader :unique_id, :id, :content
+        attr_reader :user_id, :id, :content
 
-        def initialize(unique_id, id)
-          @unique_id = unique_id
+        def initialize(user_id, id)
+          @user_id = user_id
           @id = id
         end
 
@@ -24,7 +24,7 @@ module Nexaas
         end
 
         def content_is_ready?
-          _content && _content['unique_id'] == unique_id && _content['content']
+          _content && _content['user_id'] == user_id && _content['content']
         end
 
         private

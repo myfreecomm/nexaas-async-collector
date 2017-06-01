@@ -6,9 +6,9 @@ module Nexaas
         include Sidekiq::Worker
         sidekiq_options queue: :high_fast
 
-        def perform(collector_id, unique_id, klass_name, klass_method, args=[])
+        def perform(collector_id, user_id, klass_name, klass_method, args=[])
           content = call_for_method(klass_name, klass_method, args)
-          Persist.save(unique_id, collector_id, content)
+          Persist.save(user_id, collector_id, content)
         end
 
         private
