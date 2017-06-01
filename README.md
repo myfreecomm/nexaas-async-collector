@@ -4,8 +4,8 @@ Agnostic collector and generator of async content for Rails apps. Used in produc
 This gems is compatible with Ruby 2.1+ and Rails 3.2+.
 
 ## Prerequisites
-To work properly, your project must have (for now):
-  - Sidekiq v4+
+The prerequisites of this project are:
+  - Sidekiq 4+
   - Redis
 
 ## Installation
@@ -15,7 +15,7 @@ Add this line to your application's Gemfile:
 gem 'nexaas-async-collector'
 ```
 
-And then execute:
+And then run:
 
 ```bash
 $ bundle install
@@ -28,7 +28,7 @@ $ gem install nexaas-async-collector
 ```
 
 ## Usage
-1) Create the file `config/initializers/nexaas-async-collector.rb` with the following content:
+1) Create the file `config/initializers/nexaas-async-collector.rb` with the following content (edit as you need):
 
 ```ruby
   Nexaas::Async::Collector.configure do |config|
@@ -53,7 +53,19 @@ $ gem install nexaas-async-collector
 ```
 
 ## Contributing
-Contribution directions go here.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/myfreecomm/nexaas-async-collector](https://github.com/myfreecomm/nexaas-async-collector). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+
+After downloading the project and install all gems (through `bundler`) don't forget to install appraisal gems dependecies:
+
+```
+$ appraisal install
+```
+
+This is necessary to test the code in different versions of Ruby and Rails. To run the full suite of tests:
+
+```
+$ bundle exec rake spec
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
