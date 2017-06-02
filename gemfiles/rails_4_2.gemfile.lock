@@ -157,7 +157,7 @@ DEPENDENCIES
   nexaas-async-collector!
   rails (~> 4.2)
   rails-controller-testing
-  rspec
+  rspec (= 3.6.0)
   rspec-rails (= 3.6.0)
   sqlite3 (= 1.3.13)
   test-unit (~> 3.0)
