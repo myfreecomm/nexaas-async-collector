@@ -7,6 +7,7 @@ This gems is compatible with Ruby 2.1+ and Rails 3.2+.
 The prerequisites of this project are:
   - Sidekiq 4+
   - Redis
+  - JQuery 1.0+
 
 ## Installation
 Add this line to your application's Gemfile:

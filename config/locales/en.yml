@@ -1,0 +1,5 @@
+en:
+  nexaas:
+    async:
+      collector:
+        loading: 'Loading...'
