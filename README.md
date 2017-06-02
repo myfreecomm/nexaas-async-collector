@@ -56,7 +56,7 @@ $ gem install nexaas-async-collector
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at [https://github.com/myfreecomm/nexaas-async-collector](https://github.com/myfreecomm/nexaas-async-collector). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
-After downloading the project and install all gems (through `bundler`) don't forget to install appraisal gems dependecies:
+After downloading the project and install all gems (through `bundler`) don't forget to install appraisal gems dependencies:
 
 ```
 $ appraisal install
