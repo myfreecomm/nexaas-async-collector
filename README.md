@@ -1,4 +1,10 @@
 # Nexaas::Async::Collector
+
+[![Build Status](https://travis-ci.org/myfreecomm/nexaas-async-collector.svg?branch=master)](https://travis-ci.org/myfreecomm/nexaas-async-collector)
+[![Test Coverage](https://codeclimate.com/github/myfreecomm/nexaas-async-collector/badges/coverage.svg)](https://codeclimate.com/github/myfreecomm/nexaas-async-collector/coverage)
+[![Code Climate](https://codeclimate.com/github/myfreecomm/nexaas-async-collector/badges/gpa.svg)](https://codeclimate.com/github/myfreecomm/nexaas-async-collector)
+
+
 Agnostic collector and generator of async content for Rails apps. Used in production in a few [Nexaas](www.nexaas.com) systems.
 
 This gems is compatible with Ruby 2.1+ and Rails 3.2+.
