@@ -45,7 +45,7 @@ $ gem install nexaas-async-collector
     # The namespace where you want to store you data within Redis
     config.redis_namespace = 'nexaas_async'
 
-    # The method that returns the use robject (or anyother object you want. It must respond to id method)
+    # The method that returns the user object (or any other object you want. It must respond to id method)
     config.scope = :current_user
 
     # The parent class of all nexaas-async-collector controller
