@@ -65,7 +65,7 @@ $ appraisal install
 This is necessary to test the code in different versions of Ruby and Rails. To run the full suite of tests:
 
 ```
-$ bundle exec rake spec
+$ appraisal rake spec
 ```
 
 ## License

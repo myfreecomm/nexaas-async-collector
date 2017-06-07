@@ -2,12 +2,6 @@ require 'rails_helper'
 
 describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
   describe "GET show" do
-    it 'instantiates a new result object' do
-      allow(controller).to receive(:current_user) { double(id: 1234) }
-      xhr_request :get, :show, id: 'abcde'
-      expect(assigns(:result)).to be_kind_of(Nexaas::Async::Collector::Result)
-    end
-
     context "when scope configuration is as default" do # invokes current_user method
       it 'instantiates the result object with correct data' do
         allow(controller).to receive(:current_user) { double(id: 1234) }
