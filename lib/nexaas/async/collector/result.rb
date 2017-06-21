@@ -39,11 +39,11 @@ module Nexaas
         end
 
         def url
-          Nexaas::Async::Collector.configuration.redis_url
+          Nexaas::Async::Collector.redis_url
         end
 
         def namespace
-          Nexaas::Async::Collector.configuration.redis_namespace
+          Nexaas::Async::Collector.redis_namespace
         end
 
       end
