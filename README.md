@@ -56,7 +56,7 @@ $ gem install nexaas-async-collector
 2) Use the view helper to do all the process:
 
 ```ruby
-<%= nexaas_async_collector(user.id, ModelService, :model_method, [arg1, arg2]) %>
+<%= nexaas_async_collect(user.id, ModelService, :model_method, [arg1, arg2]) %>
 ```
 
 ## Contributing
