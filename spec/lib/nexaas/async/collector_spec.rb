@@ -5,6 +5,22 @@ describe Nexaas::Async::Collector do
     expect(Nexaas::Async::Collector::VERSION).to_not be_nil
   end
 
+  describe '.redis_url' do
+    it { expect(described_class.redis_url).to be_nil }
+  end
+
+  describe '.redis_namespace' do
+    it { expect(described_class.redis_namespace).to eq('nexaas_async') }
+  end
+
+  describe '.scope' do
+    it { expect(described_class.scope).to eq('current_user') }
+  end
+
+  describe '.parent_controller' do
+    it { expect(described_class.parent_controller).to eq('::ActionController::Base') }
+  end
+
   describe '.configure' do
     it 'accepts a block to configure gem options' do
       described_class.configure do |c|
@@ -12,19 +28,8 @@ describe Nexaas::Async::Collector do
         c.redis_namespace = 'specific_namespace'
       end
 
-      config = described_class.configuration
-      expect(config.redis_url).to eq('anything')
-      expect(config.redis_namespace).to eq('specific_namespace')
-    end
-  end
-
-  describe '.configuration' do
-    it 'returns a memoized object' do
-      first_config = described_class.configuration
-      first_config.redis_namespace = 'my_specific_namespace'
-
-      config = described_class.configuration
-      expect(config.redis_namespace).to eq('my_specific_namespace')
+      expect(described_class.redis_url).to eq('anything')
+      expect(described_class.redis_namespace).to eq('specific_namespace')
     end
   end
 end

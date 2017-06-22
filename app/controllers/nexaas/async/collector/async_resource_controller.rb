@@ -10,7 +10,7 @@ module Nexaas
         private
 
         def nexaas_async_collector_scope
-          Nexaas::Async::Collector.configuration.scope
+          Nexaas::Async::Collector.scope
         end
 
         def collector_scope
