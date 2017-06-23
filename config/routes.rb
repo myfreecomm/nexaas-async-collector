@@ -1,3 +1,3 @@
-Rails.application.routes.draw do
-  get 'nexaas/async/collect/:id' => 'nexaas/async/collector/async_resource#show', as: :nexaas_async_collect
+Nexaas::Async::Collector::Engine.routes.draw do
+  resources :async_resource, only: :show
 end

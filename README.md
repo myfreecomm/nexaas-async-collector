@@ -53,7 +53,17 @@ $ gem install nexaas-async-collector
   end
 ```
 
-2) Use the view helper to do all the process:
+2) Add this to your *config/routes.rb* file:
+
+```ruby
+Rails.application.routes.draw do
+  # ...
+  mount Nexaas::Async::Collector::Engine => '/nexaas_async_collect'
+  # ...
+end
+```
+
+3) Use the view helper to do all the process:
 
 ```ruby
 <%= nexaas_async_collector(user.id, ModelService, :model_method, [arg1, arg2]) %>
