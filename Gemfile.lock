@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nexaas-async-collector (1.1.0)
+    nexaas-async-collector (1.2.0)
       rails (>= 3.2)
       redis-namespace (>= 1.5.2)
       sidekiq (~> 4.2)

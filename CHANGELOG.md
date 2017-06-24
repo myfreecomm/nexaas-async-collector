@@ -1,4 +1,4 @@
-### 1.1.0 - 2017-06-24
+### 1.2.0 - 2017-06-24
 
 * Enhancements
   * Add queue_name configuration [#9](https://github.com/myfreecomm/nexaas-async-collector/pull/9)
