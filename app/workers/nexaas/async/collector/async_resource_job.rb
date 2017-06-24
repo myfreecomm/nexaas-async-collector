@@ -4,7 +4,7 @@ module Nexaas
       class AsyncResourceJob
 
         include Sidekiq::Worker
-        sidekiq_options queue: :high_fast
+        sidekiq_options queue: Nexaas::Async::Collector.queue_name
 
         def perform(collector_id, user_id, klass_name, klass_method, args=[])
           content = call_for_method(klass_name, klass_method, args)

@@ -45,6 +45,9 @@ $ gem install nexaas-async-collector
     # The namespace where you want to store you data within Redis
     config.redis_namespace = 'nexaas_async'
 
+    # The name of the sidekiq queue to be used
+    config.queue_name = :high_fast
+
     # The method that returns the user object (or any other object you want. It must respond to id method)
     config.scope = :current_user
 

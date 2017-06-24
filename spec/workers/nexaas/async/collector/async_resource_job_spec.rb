@@ -1,4 +1,5 @@
-require "rails_helper"
+require 'rails_helper'
+require 'sidekiq/testing'
 
 class DummyModel
   def self.generate(first_arg, second_arg)
@@ -12,6 +13,10 @@ end
 
 describe Nexaas::Async::Collector::AsyncResourceJob do
   subject { described_class.new }
+
+  it 'uses the correct queue name' do
+    expect { described_class.perform_async }.to change(Sidekiq::Queues['high_fast'], :size).by(1)
+  end
 
   describe "#perform" do
     context "when there are additional args" do
