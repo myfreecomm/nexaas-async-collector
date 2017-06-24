@@ -17,6 +17,10 @@ module Nexaas
       mattr_accessor :redis_namespace
       @@redis_namespace = 'nexaas_async'
 
+      # Name of the sidekiq queue to be used
+      mattr_accessor :queue_name
+      @@queue_name = :high_fast
+
       # Method will be called to get the user/account id
       # This ID is used to store and ensure only the user
       # will fetch the processed data.
