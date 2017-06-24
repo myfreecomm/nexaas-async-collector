@@ -1,3 +1,5 @@
+require_dependency "nexaas/async/collector/application_controller"
+
 module Nexaas
   module Async
     module Collector
