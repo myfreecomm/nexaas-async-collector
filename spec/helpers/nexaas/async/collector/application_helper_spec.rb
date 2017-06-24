@@ -24,4 +24,10 @@ describe Nexaas::Async::Collector::ApplicationHelper, type: :helper do
       ).to match(/<script type=/)
     end
   end
+
+  describe '#nexaas_async_collector' do
+    it "should respond to engine url methods" do
+      expect(helper.nexaas_async_collector).to respond_to(:async_resource_path)
+    end
+  end
 end

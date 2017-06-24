@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
+  routes { Nexaas::Async::Collector::Engine.routes }
+
   describe "GET show" do
     context "when scope configuration is as default" do # invokes current_user method
       it 'instantiates the result object with correct data' do

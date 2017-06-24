@@ -17,6 +17,12 @@ module Nexaas
           render(partial: 'nexaas/async/collector/async_resource/show')
         end
 
+        # Rails 4.x does not add this helper automatically as Rails 5.X and 3.X does. So we had to created it to keep
+        # the same interface.
+        def nexaas_async_collector
+          @@nexaas_async_collector ||= Nexaas::Async::Collector::Engine.routes.url_helpers
+        end
+
         private
 
         def collector_user_id
