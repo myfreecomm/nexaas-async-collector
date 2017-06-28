@@ -1,3 +1,9 @@
+### 1.2.1 - 2017-06-28
+
+* Bug fixes
+  * Change result rendering order [#11](https://github.com/myfreecomm/nexaas-async-collector/pull/11)
+  * Fix helper injection [#12](https://github.com/myfreecomm/nexaas-async-collector/pull/12)
+
 ### 1.2.0 - 2017-06-24
 
 * Enhancements
