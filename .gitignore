@@ -9,3 +9,4 @@ spec/dummy/Gemfile.lock
 .byebug_history
 .ruby-version
 .ruby-gemset
+gemfiles/*.lock
