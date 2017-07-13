@@ -3,26 +3,24 @@ module Nexaas
     module Collector
       class InMemoryStorage
 
-        attr_reader :connection, :namespace
-
-        def initialize
-          @connection ||= Redis.new(url: redis_url)
-          @namespace ||= Redis::Namespace.new(redis_namespace, redis: connection) if redis_namespace
-        end
-
         def get(key)
-          storage.get(key)
+          Sidekiq.redis_pool.with do |connection|
+            connection.get(namespace_key(key))
+          end
         end
 
         def set(key, value, expiration=nil)
-          storage.set(key, value)
-          storage.expire(key, expiration) if expiration
+          Sidekiq.redis_pool.with do |connection|
+            key = namespace_key(key)
+            connection.set(key, value)
+            connection.expire(key, expiration) if expiration
+          end
         end
 
         private
 
-        def storage
-          @namespace || @connection
+        def namespace_key(key)
+          "#{redis_namespace}:#{key}"
         end
 
         def redis_url
