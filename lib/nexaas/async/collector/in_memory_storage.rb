@@ -5,13 +5,13 @@ module Nexaas
 
         def get(key)
           Sidekiq.redis_pool.with do |connection|
-            connection.get(namespace_key(key))
+            connection.get(namespaced_key(key))
           end
         end
 
         def set(key, value, expiration=nil)
           Sidekiq.redis_pool.with do |connection|
-            key = namespace_key(key)
+            key = namespaced_key(key)
             connection.set(key, value)
             connection.expire(key, expiration) if expiration
           end
@@ -19,7 +19,7 @@ module Nexaas
 
         private
 
-        def namespace_key(key)
+        def namespaced_key(key)
           "#{redis_namespace}:#{key}"
         end
 
