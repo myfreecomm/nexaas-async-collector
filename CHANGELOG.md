@@ -1,3 +1,8 @@
+### 1.2.2 - 2017-07-13
+
+* Bug fixes
+  * Use sidekiq redis connection pool to get/set data [#13](https://github.com/myfreecomm/nexaas-async-collector/pull/13)
+
 ### 1.2.1 - 2017-06-28
 
 * Bug fixes
