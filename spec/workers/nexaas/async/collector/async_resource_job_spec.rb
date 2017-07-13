@@ -19,6 +19,35 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
   end
 
   describe "#perform" do
+    let(:instrumentation_opts) do
+      {
+        collect_id: 'id-hash', user_id: 12,
+        class_name: 'DummyModel', class_method: :generate
+      }
+    end
+
+    it 'instruments start and finish with ActiveSupport' do
+      Timecop.freeze(2017, 7, 13, 10, 0, 0) do
+        default_context = Nexaas::Async::Collector.instrumentation_context
+        expect(ActiveSupport::Notifications).to receive(:instrument).twice
+        subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+      end
+    end
+
+    context "when setting instrumentation context" do
+      before do
+        allow(Nexaas::Async::Collector).to receive(:instrumentation_context).and_return('testing.instrumentation')
+      end
+
+      it 'instruments start and finish with ActiveSupport::Notifications' do
+        Timecop.freeze(2017, 7, 13, 10, 0, 0) do
+          default_context = Nexaas::Async::Collector.instrumentation_context
+          expect(ActiveSupport::Notifications).to receive(:instrument).twice
+          subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+        end
+      end
+    end
+
     context "when there are additional args" do
       it 'invokes Persist.save' do
         expect(Nexaas::Async::Collector::Persist).to receive(:save)

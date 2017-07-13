@@ -32,6 +32,10 @@ module Nexaas
       mattr_accessor :parent_controller
       @@parent_controller = '::ActionController::Base'
 
+      # Context name of the instrumentation
+      mattr_accessor :instrumentation_context
+      @@instrumentation_context = 'nexaas-async-collector'
+
       def self.configure
         yield self
       end
