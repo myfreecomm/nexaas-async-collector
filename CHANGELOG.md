@@ -1,3 +1,8 @@
+### 2.0.0 - 2017-07-14
+
+* Feature
+  * Add ActiveSupport instrumentation when starting and finishing job processing [#14](https://github.com/myfreecomm/nexaas-async-collector/pull/14)
+
 ### 1.2.2 - 2017-07-13
 
 * Bug fixes
