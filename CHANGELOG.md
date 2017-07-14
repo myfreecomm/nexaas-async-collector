@@ -1,3 +1,8 @@
+### 2.0.1 - 2017-07-14
+
+* Bug fixes
+  * Fix and replace scoped_id by scope_id
+
 ### 2.0.0 - 2017-07-14
 
 * Feature
