@@ -12,7 +12,6 @@ module Nexaas
         # Example:
         # <%= nexaas_async_collect(current_user.id, ReportGenerator, :generate, []) %>
         #
-        # user_id, klass_name, klass_method, args=[]
         def nexaas_async_collect(opts={})
           validate_options(opts)
           opts.merge!({ collect_id: collect_id })
