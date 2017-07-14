@@ -39,7 +39,7 @@ module Nexaas
         end
 
         def required_collect_opts
-          ['scoped_id', 'class_name', 'class_method']
+          ['scope_id', 'class_name', 'class_method']
         end
 
       end
