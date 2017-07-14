@@ -10,7 +10,7 @@ module Nexaas
           initialize_options(opts)
           start_time = Time.current.to_i
           instrument_start(start_time)
-          Persist.save(@scoped_id, @collect_id, generate_content)
+          Persist.save(@scope_id, @collect_id, generate_content)
           instrument_finish(start_time)
         end
 
@@ -32,7 +32,7 @@ module Nexaas
 
         def instrument_start(start_time)
           ActiveSupport::Notifications.instrument("#{instrumentation_context}.start", {
-            collect_id: @collect_id, scoped_id: @scoped_id,
+            collect_id: @collect_id, scope_id: @scope_id,
             class_name: @class_name, class_method: @class_method,
             start: start_time
           })
@@ -42,7 +42,7 @@ module Nexaas
           finish = Time.current.to_i
           duration = (finish - start_time)
           ActiveSupport::Notifications.instrument("#{instrumentation_context}.finish", {
-            collect_id: @collect_id, scoped_id: @scoped_id,
+            collect_id: @collect_id, scope_id: @scope_id,
             class_name: @class_name, class_method: @class_method,
             finish: finish, duration: duration
           })

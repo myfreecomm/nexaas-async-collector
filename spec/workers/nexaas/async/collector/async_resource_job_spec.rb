@@ -21,7 +21,7 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
   describe "#perform" do
     let(:opts) do
       {
-        collect_id: 'id-hash', scoped_id: 12,
+        collect_id: 'id-hash', scope_id: 12,
         class_name: 'DummyModel', class_method: :generate,
         args: [4, 5]
       }
@@ -33,7 +33,7 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
           allow(subject).to receive(:instrument_finish)
           expect(ActiveSupport::Notifications).to receive(:instrument).with(
             "nexaas-async-collector.start", {
-            collect_id: 'id-hash', scoped_id: 12,
+            collect_id: 'id-hash', scope_id: 12,
             class_name: 'DummyModel', class_method: :generate,
             start: 1499940000
           })
@@ -46,7 +46,7 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
           allow(subject).to receive(:instrument_start)
           expect(ActiveSupport::Notifications).to receive(:instrument).with(
             "nexaas-async-collector.finish", {
-            collect_id: 'id-hash', scoped_id: 12,
+            collect_id: 'id-hash', scope_id: 12,
             class_name: 'DummyModel', class_method: :generate,
             finish: 1499940000, duration: 0
           })
@@ -61,7 +61,7 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
           allow(subject).to receive(:instrument_finish)
           expect(ActiveSupport::Notifications).to receive(:instrument).with(
             "custom.instrumentation.start", {
-            collect_id: 'id-hash', scoped_id: 12,
+            collect_id: 'id-hash', scope_id: 12,
             class_name: 'DummyModel', class_method: :generate,
             start: 1499940000
           })
@@ -74,7 +74,7 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
           allow(subject).to receive(:instrument_start)
           expect(ActiveSupport::Notifications).to receive(:instrument).with(
             "custom.instrumentation.finish", {
-            collect_id: 'id-hash', scoped_id: 12,
+            collect_id: 'id-hash', scope_id: 12,
             class_name: 'DummyModel', class_method: :generate,
             finish: 1499940000, duration: 0
           })

@@ -4,7 +4,7 @@ module Nexaas
       module ApplicationHelper
         #
         # Helper to enqueue AsyncResourceJob and include the JavaScript code to request the result
-        # - scoped_id: an ID that is unique (maybe user.id, account.id, organization.id, etc)
+        # - scope_id: an ID that is unique (maybe user.id, account.id, organization.id, etc)
         # - klass_name: The name of the class responsible for generate the content to be stored in the memory
         # - klass_method: The name of the class method to be called
         # - args: The arguments to be passed in the call of the class method
