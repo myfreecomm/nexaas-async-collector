@@ -4,7 +4,7 @@ module Nexaas
       module ApplicationHelper
         #
         # Helper to enqueue AsyncResourceJob and include the JavaScript code to request the result
-        # - user_id: an ID that is unique for each logged user (maybe user.id, account.id, organization.id, etc)
+        # - scoped_id: an ID that is unique (maybe user.id, account.id, organization.id, etc)
         # - klass_name: The name of the class responsible for generate the content to be stored in the memory
         # - klass_method: The name of the class method to be called
         # - args: The arguments to be passed in the call of the class method
@@ -12,8 +12,10 @@ module Nexaas
         # Example:
         # <%= nexaas_async_collect(current_user.id, ReportGenerator, :generate, []) %>
         #
-        def nexaas_async_collect(user_id, klass_name, klass_method, args=[])
-          AsyncResourceJob.perform_async(collector_user_id, user_id, klass_name, klass_method, args)
+        def nexaas_async_collect(opts={})
+          validate_options(opts)
+          opts.merge!({ collect_id: collect_id })
+          AsyncResourceJob.perform_async(opts)
           render(partial: 'nexaas/async/collector/async_resource/show')
         end
 
@@ -25,8 +27,19 @@ module Nexaas
 
         private
 
-        def collector_user_id
-          @collector_user_id ||= SecureRandom.hex(15)
+        def validate_options(opts={})
+          missing_keys = required_collect_opts - opts.keys.map(&:to_s)
+          if missing_keys.any?
+            raise "Nexaas::Async::Collector: Required parameter missing: #{missing_keys.join(', ')}"
+          end
+        end
+
+        def collect_id
+          @collect_id ||= SecureRandom.hex(15)
+        end
+
+        def required_collect_opts
+          ['scope_id', 'class_name', 'class_method']
         end
 
       end

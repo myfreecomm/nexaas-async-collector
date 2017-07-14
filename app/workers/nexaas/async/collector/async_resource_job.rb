@@ -6,19 +6,50 @@ module Nexaas
         include Sidekiq::Worker
         sidekiq_options queue: Nexaas::Async::Collector.queue_name
 
-        def perform(collector_id, user_id, klass_name, klass_method, args=[])
-          content = call_for_method(klass_name, klass_method, args)
-          Persist.save(user_id, collector_id, content)
+        def perform(opts={})
+          initialize_options(opts)
+          start_time = Time.current.to_i
+          instrument_start(start_time)
+          Persist.save(@scoped_id, @collect_id, generate_content)
+          instrument_finish(start_time)
         end
 
         private
 
-        def call_for_method(klass_name, klass_method, args=[])
-          if args.any?
-            klass_name.to_s.constantize.send(klass_method, *args)
-          else
-            klass_name.to_s.constantize.send(klass_method)
+        def initialize_options(opts)
+          opts.each do |k, v|
+            instance_variable_set("@#{k}", v)
           end
+        end
+
+        def generate_content
+          if @args && @args.any?
+            @class_name.to_s.constantize.send(@class_method, *@args)
+          else
+            @class_name.to_s.constantize.send(@class_method)
+          end
+        end
+
+        def instrument_start(start_time)
+          ActiveSupport::Notifications.instrument("#{instrumentation_context}.start", {
+            collect_id: @collect_id, scoped_id: @scoped_id,
+            class_name: @class_name, class_method: @class_method,
+            start: start_time
+          })
+        end
+
+        def instrument_finish(start_time)
+          finish = Time.current.to_i
+          duration = (finish - start_time)
+          ActiveSupport::Notifications.instrument("#{instrumentation_context}.finish", {
+            collect_id: @collect_id, scoped_id: @scoped_id,
+            class_name: @class_name, class_method: @class_method,
+            finish: finish, duration: duration
+          })
+        end
+
+        def instrumentation_context
+          @instrumentation_context || 'nexaas-async-collector'
         end
       end
     end

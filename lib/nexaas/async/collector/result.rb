@@ -1,21 +1,20 @@
 # Content is stored in the database as the following JSON:
 # {
-#   'user_id' => 'user_id',
+#   'scope_id' => 'scope_id',
 #   'content' => 'generated content'
 # }
-# The content is scoped by user, so any other user who discover the key (id) of the content, will not be able
-# to access only. Only the user who created it.
-# Maybe leave this more generic?
+# The content is scoped by scope, so any other scope who discover the key (id) of the content, will not be able
+# to access only. Only the scope who created it.
 
 module Nexaas
   module Async
     module Collector
       class Result
 
-        attr_reader :user_id, :id, :content
+        attr_reader :scope_id, :id, :content
 
-        def initialize(user_id, id)
-          @user_id = user_id
+        def initialize(scope_id, id)
+          @scope_id = scope_id
           @id = id
         end
 
@@ -24,7 +23,7 @@ module Nexaas
         end
 
         def content_is_ready?
-          _content && _content['user_id'] == user_id && _content['content']
+          _content && _content['scope_id'] == scope_id && _content['content']
         end
 
         private
