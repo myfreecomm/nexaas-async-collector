@@ -4,7 +4,7 @@ module Nexaas
       module ApplicationHelper
         #
         # Helper to enqueue AsyncResourceJob and include the JavaScript code to request the result
-        # - user_id: an ID that is unique for each logged user (maybe user.id, account.id, organization.id, etc)
+        # - scoped_id: an ID that is unique (maybe user.id, account.id, organization.id, etc)
         # - klass_name: The name of the class responsible for generate the content to be stored in the memory
         # - klass_method: The name of the class method to be called
         # - args: The arguments to be passed in the call of the class method
@@ -39,7 +39,7 @@ module Nexaas
         end
 
         def required_collect_opts
-          ['user_id', 'class_name', 'class_method']
+          ['scoped_id', 'class_name', 'class_method']
         end
 
       end

@@ -70,7 +70,7 @@ end
 
 ```ruby
 <%= nexaas_async_collect({
-  user_id: user.id, # (required) the ID of the user. It ensures only the user who requested the data will be able to fetch it
+  scoped_id: scope.id, # (required) the ID of the scope. It ensures only the scope who requested the data will be able to fetch it
   class_name: ModelService, # (required) name of the class
   class_method: :model_method, # (required) name of the class method responsible to generate data
   args: [arg1, arg2], # (optional) arguments to be passed to class method
