@@ -33,11 +33,12 @@ module Nexaas
         end
 
         def instrument_finish(collect_id, user_id, klass_name, klass_method)
-          duration = (Time.current.to_i - @start)
+          finish = Time.current.to_i
+          duration = (finish - @start)
           ActiveSupport::Notifications.instrument("#{instrumentation_context}.finish", {
             collect_id: collect_id, user_id: user_id,
             class_name: klass_name, class_method: klass_method,
-            duration: duration
+            finish: finish, duration: duration
           })
         end
 
