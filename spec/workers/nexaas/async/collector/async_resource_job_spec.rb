@@ -19,31 +19,66 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
   end
 
   describe "#perform" do
-    let(:instrumentation_opts) do
+    let(:opts) do
       {
         collect_id: 'id-hash', user_id: 12,
-        class_name: 'DummyModel', class_method: :generate
+        class_name: 'DummyModel', class_method: :generate,
+        args: [4, 5]
       }
     end
 
-    it 'instruments start and finish with ActiveSupport' do
-      Timecop.freeze(2017, 7, 13, 10, 0, 0) do
-        default_context = Nexaas::Async::Collector.instrumentation_context
-        expect(ActiveSupport::Notifications).to receive(:instrument).twice
-        subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+    context 'when instrumentation_context param is not present' do
+      it 'instruments start with ActiveSupport::Notifications' do
+        Timecop.freeze(2017, 7, 13, 10, 0, 0) do
+          allow(subject).to receive(:instrument_finish)
+          expect(ActiveSupport::Notifications).to receive(:instrument).with(
+            "nexaas-async-collector.start", {
+            collect_id: 'id-hash', user_id: 12,
+            class_name: 'DummyModel', class_method: :generate,
+            start: 1499940000
+          })
+          subject.perform(opts)
+        end
+      end
+
+      it 'instruments finish with ActiveSupport::Notifications' do
+        Timecop.freeze(2017, 7, 13, 10, 0, 0) do
+          allow(subject).to receive(:instrument_start)
+          expect(ActiveSupport::Notifications).to receive(:instrument).with(
+            "nexaas-async-collector.finish", {
+            collect_id: 'id-hash', user_id: 12,
+            class_name: 'DummyModel', class_method: :generate,
+            finish: 1499940000, duration: 0
+          })
+          subject.perform(opts)
+        end
       end
     end
 
-    context "when setting instrumentation context" do
-      before do
-        allow(Nexaas::Async::Collector).to receive(:instrumentation_context).and_return('testing.instrumentation')
+    context "when instrumentation_context param is present" do
+      it 'instruments start ActiveSupport::Notifications' do
+        Timecop.freeze(2017, 7, 13, 10, 0, 0) do
+          allow(subject).to receive(:instrument_finish)
+          expect(ActiveSupport::Notifications).to receive(:instrument).with(
+            "custom.instrumentation.start", {
+            collect_id: 'id-hash', user_id: 12,
+            class_name: 'DummyModel', class_method: :generate,
+            start: 1499940000
+          })
+          subject.perform(opts.merge(instrumentation_context: 'custom.instrumentation'))
+        end
       end
 
-      it 'instruments start and finish with ActiveSupport::Notifications' do
+      it 'instruments finish with ActiveSupport::Notifications' do
         Timecop.freeze(2017, 7, 13, 10, 0, 0) do
-          default_context = Nexaas::Async::Collector.instrumentation_context
-          expect(ActiveSupport::Notifications).to receive(:instrument).twice
-          subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+          allow(subject).to receive(:instrument_start)
+          expect(ActiveSupport::Notifications).to receive(:instrument).with(
+            "custom.instrumentation.finish", {
+            collect_id: 'id-hash', user_id: 12,
+            class_name: 'DummyModel', class_method: :generate,
+            finish: 1499940000, duration: 0
+          })
+          subject.perform(opts.merge(instrumentation_context: 'custom.instrumentation'))
         end
       end
     end
@@ -51,26 +86,28 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
     context "when there are additional args" do
       it 'invokes Persist.save' do
         expect(Nexaas::Async::Collector::Persist).to receive(:save)
-        subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+        subject.perform(opts)
       end
 
       it 'invokes DummyModel.generate' do
         allow(Nexaas::Async::Collector::Persist).to receive(:save)
         expect(DummyModel).to receive(:generate).with(4, 5)
-        subject.perform("id-hash", 12, 'DummyModel', :generate, [4, 5])
+        subject.perform(opts)
       end
     end
 
     context "when there is no additional args" do
+      before { opts.merge!(class_method: :update).delete(:args) }
+
       it 'invokes Persist.save' do
         expect(Nexaas::Async::Collector::Persist).to receive(:save)
-        subject.perform("id-hash", 12, 'DummyModel', :update)
+        subject.perform(opts)
       end
 
       it 'invokes DummyModel.update' do
         allow(Nexaas::Async::Collector::Persist).to receive(:save)
         expect(DummyModel).to receive(:update).with(no_args)
-        subject.perform("id-hash", 12, 'DummyModel', :update)
+        subject.perform(opts)
       end
     end
   end
