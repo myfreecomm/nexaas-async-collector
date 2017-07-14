@@ -1,3 +1,9 @@
+### 3.0.0 - 2017-07-14
+
+* Feature
+  * Drop ruby 2.2.x support
+  * Add support for sidekiq 5
+
 ### 2.0.1 - 2017-07-14
 
 * Bug fixes
