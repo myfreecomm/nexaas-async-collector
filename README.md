@@ -69,7 +69,13 @@ end
 3) Use the view helper to do all the process:
 
 ```ruby
-<%= nexaas_async_collect(user.id, ModelService, :model_method, [arg1, arg2]) %>
+<%= nexaas_async_collect({
+  user_id: user.id, # (required) the ID of the user. It ensures only the user who requested the data will be able to fetch it
+  class_name: ModelService, # (required) name of the class
+  class_method: :model_method, # (required) name of the class method responsible to generate data
+  args: [arg1, arg2], # (optional) arguments to be passed to class method
+  instrumentation_context: 'my.custom.instrumentation' # (optional) context of the instrumentation name. It will generate two instrumentation: 'my.custom.instrumentation.start' and 'my.custom.instrumentation.finish'
+}) %>
 ```
 
 ## Contributing
