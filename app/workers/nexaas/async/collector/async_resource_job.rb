@@ -23,7 +23,7 @@ module Nexaas
         end
 
         def generate_content
-          if @args&.any?
+          if @args && @args.any?
             @class_name.to_s.constantize.send(@class_method, *@args)
           else
             @class_name.to_s.constantize.send(@class_method)
