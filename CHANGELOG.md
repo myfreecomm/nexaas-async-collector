@@ -1,3 +1,10 @@
+### 3.0.0 - 2017-07-20
+
+* Bug fixes
+  * Allow multiples collectors in the same page [#19](https://github.com/myfreecomm/nexaas-async-collector/pull/19)
+* Enhancements
+  * Update Ruby version in README [#16](https://github.com/myfreecomm/nexaas-async-collector/pull/16)
+
 ### 3.0.0 - 2017-07-14
 
 * Feature
