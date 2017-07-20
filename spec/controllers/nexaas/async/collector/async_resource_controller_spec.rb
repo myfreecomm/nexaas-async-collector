@@ -4,6 +4,12 @@ describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
   routes { Nexaas::Async::Collector::Engine.routes }
 
   describe "GET show" do
+    it 'assigns unique_id as infomed' do
+      allow(controller).to receive(:current_user) { double(id: 1234) }
+      xhr_request :get, :show, id: 'abcde', unique_id: 'abcdef'
+      expect(assigns(:unique_id)).to eq('abcdef')
+    end
+
     context "when scope configuration is as default" do # invokes current_user method
       it 'instantiates the result object with correct data' do
         allow(controller).to receive(:current_user) { double(id: 1234) }

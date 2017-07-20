@@ -14,7 +14,7 @@ describe Nexaas::Async::Collector::ApplicationHelper, type: :helper do
     end
 
     it 'renders nexaas/async/collector/async_resource/show partial' do
-      expect(helper).to receive(:render)
+      expect(helper).to receive(:render).with({ partial: 'nexaas/async/collector/async_resource/show', locals: { unique_id: 'abc123' } })
       helper.nexaas_async_collect({ scope_id: 12, class_name: DummyAsyncResource, class_method: :generate, args: [1, 4] })
     end
 

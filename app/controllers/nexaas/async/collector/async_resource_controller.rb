@@ -6,6 +6,7 @@ module Nexaas
       class AsyncResourceController < ApplicationController
         def show
           @result = Result.new(collector_scope.id, params[:id])
+          @unique_id = params[:unique_id]
           respond_to { |f| f.js }
         end
 

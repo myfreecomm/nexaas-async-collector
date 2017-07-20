@@ -16,7 +16,7 @@ module Nexaas
           validate_options(opts)
           opts.merge!({ collect_id: collect_id })
           AsyncResourceJob.perform_async(opts)
-          render(partial: 'nexaas/async/collector/async_resource/show')
+          render(partial: 'nexaas/async/collector/async_resource/show', locals: { unique_id: SecureRandom.hex })
         end
 
         # Rails 4.x does not add this helper automatically as Rails 5.X and 3.X does. So we had to created it to keep
