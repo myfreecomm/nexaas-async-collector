@@ -1,5 +1,7 @@
 <% if @result.content_is_ready? %>
   clearInterval(window.nexaas_async_interval);
-  $('.nexaas-async-collector-loading').remove();
-  $('#js-nexaas-async-collector').parent().append("<%= escape_javascript(@result.content.html_safe) %>");
+  $('#js-nexaas-async-collector-loading-<%= @unique_id %>').remove();
+  $('#js-nexaas-async-collector-<%= @unique_id %>').parent().append("<%= escape_javascript(@result.content.html_safe) %>");
+  $('#js-nexaas-async-collector-<%= @unique_id %>').remove()
+  $('#js-nexaas-async-collector-style-<%= @unique_id %>').remove()
 <% end %>
