@@ -31,7 +31,7 @@ module Nexaas
         end
 
         def filename
-          object && object.dig('file', 'filename')
+          object && object.dig('file', 'name')
         end
 
         def content_type

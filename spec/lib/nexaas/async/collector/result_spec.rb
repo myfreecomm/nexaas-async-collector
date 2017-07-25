@@ -14,7 +14,7 @@ describe Nexaas::Async::Collector::Result do
       'scope_id' => 1893, 'content' => '<html></html>',
       'file' => {
         'content_type' => 'text/html',
-        'filename' => 'index',
+        'name' => 'index',
         'extension' => 'html'
       }
     }.to_json
