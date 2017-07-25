@@ -9,6 +9,7 @@ module Nexaas
         # - klass_name: The name of the class responsible for generate the content to be stored in the memory
         # - klass_method: The name of the class method to be called
         # - args: The arguments to be passed in the call of the class method
+        # - instrumentation_context: Custom context for instrumentatio with ActiveSupport::Notifications
         # - file: Argument to pass file informations. This will be used to generated file for the user
         #   - conten_type: Content type of the file
         #   - name: Basename of the file to be generated
@@ -17,7 +18,7 @@ module Nexaas
         # <%= nexaas_async_collect({
         #   scope_id: current_user.id, class_name: ReportGenerator,
         #   class_method: :generate, args: [],
-        #   file: { content_type: 'application/json', name: 'data'
+        #   file: { content_type: 'application/json', name: 'data' }
         # }) %>
         #
         def nexaas_async_collect(opts={})

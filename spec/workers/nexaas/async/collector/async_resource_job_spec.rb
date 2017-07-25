@@ -27,6 +27,29 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
       }
     end
 
+    it 'invokes Persist.save' do
+      expect(Nexaas::Async::Collector::Persist).to receive(:save).with({
+        'collect_id' => 'id-hash', 'scope_id' => 12,
+        'content' => 9
+      })
+      subject.perform(opts)
+    end
+
+    context 'when file option is present' do
+      before { opts[:file] = { content_type: 'text/html', extension: 'html', name: 'index' } }
+
+      it 'invokes Persist.save' do
+        expect(Nexaas::Async::Collector::Persist).to receive(:save).with({
+          'collect_id' => 'id-hash', 'scope_id' => 12,
+          'content' => 9, 'file' => {
+            'content_type' => 'text/html', 'extension' => 'html',
+            'name' => 'index'
+          }
+        })
+        subject.perform(opts)
+      end
+    end
+
     context 'when instrumentation_context param is not present' do
       it 'instruments start with ActiveSupport::Notifications' do
         Timecop.freeze(2017, 7, 13, 10, 0, 0) do
@@ -84,11 +107,6 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
     end
 
     context "when there are additional args" do
-      it 'invokes Persist.save' do
-        expect(Nexaas::Async::Collector::Persist).to receive(:save)
-        subject.perform(opts)
-      end
-
       it 'invokes DummyModel.generate' do
         allow(Nexaas::Async::Collector::Persist).to receive(:save)
         expect(DummyModel).to receive(:generate).with(4, 5)
@@ -98,11 +116,6 @@ describe Nexaas::Async::Collector::AsyncResourceJob do
 
     context "when there is no additional args" do
       before { opts.merge!(class_method: :update).delete(:args) }
-
-      it 'invokes Persist.save' do
-        expect(Nexaas::Async::Collector::Persist).to receive(:save)
-        subject.perform(opts)
-      end
 
       it 'invokes DummyModel.update' do
         allow(Nexaas::Async::Collector::Persist).to receive(:save)

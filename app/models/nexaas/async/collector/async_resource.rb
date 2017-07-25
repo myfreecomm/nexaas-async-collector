@@ -5,7 +5,8 @@ module Nexaas
     module Collector
       class AsyncResource
 
-        attr_accessor :scope_id, :class_name, :class_method, :args, :file, :collect_id
+        attr_accessor :scope_id, :class_name, :class_method, :args, 
+                      :file, :collect_id, :instrumentation_context
 
         include ActiveModel::Validations
 
@@ -26,7 +27,8 @@ module Nexaas
         def sliced_attributes
           {
             scope_id: scope_id, class_name: class_name, class_method: class_method,
-            args: args, file: file, collect_id: collect_id
+            args: args, file: file, collect_id: collect_id,
+            instrumentation_context: instrumentation_context
           }.reject { |_,v| v.nil? }
         end
 

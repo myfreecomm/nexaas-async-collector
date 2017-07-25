@@ -6,7 +6,7 @@ describe Nexaas::Async::Collector::AsyncResource do
       scope_id: 1, class_name: 'DummyModel',
       class_method: :generate, args: [1,2,3],
       file: { content_type: 'application/json', name: 'json-file' },
-      collect_id: 'abcdef'
+      collect_id: 'abcdef', instrumentation_context: 'custom.instrumentation'
     }
   end
 
@@ -62,7 +62,8 @@ describe Nexaas::Async::Collector::AsyncResource do
         expect(subject.sliced_attributes).to eq({
           scope_id: 1, class_name: 'DummyModel',
           class_method: :generate, args: [1,2,3],
-          collect_id: 'abcdef'
+          collect_id: 'abcdef',
+          instrumentation_context: 'custom.instrumentation'
         })
       end
     end

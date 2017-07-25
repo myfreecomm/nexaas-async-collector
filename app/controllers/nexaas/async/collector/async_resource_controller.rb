@@ -4,17 +4,26 @@ module Nexaas
   module Async
     module Collector
       class AsyncResourceController < ApplicationController
-        respond_to :all
 
         def show
           @result = Result.new(collector_scope.id, params[:id])
           @unique_id = params[:unique_id]
-          if request.format.symbol == :js
-            render :show
+          respond_to do |format|
+            render_for_request(format)
           end
         end
 
         private
+
+        def render_for_request(format)
+          format.js { render :show }
+          format.all do
+            send_data(@result.content, {
+              filename: @result.filename, type: @result.content_type,
+              disposition: 'attachment'
+            })
+          end
+        end
 
         def collector_scope
           send(Nexaas::Async::Collector.scope)
