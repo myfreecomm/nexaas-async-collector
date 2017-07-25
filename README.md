@@ -78,6 +78,28 @@ end
 }) %>
 ```
 
+### Download file
+
+Instead of rendering text or HTML, you can use `nexaas-async-collect` to generate files, so the user can download it.
+
+If you want to export something to `xls` file, for example:
+
+```ruby
+<%= nexaas_async_collect({
+  scope_id: scope.id, # (required)
+  class_name: ModelService, # (required)
+  class_method: :model_method, # (required)
+  args: [arg1, arg2], # (optional)
+  file: {
+    content_type: 'application/vnd.ms-excel', # (required) content type of the file
+    name: 'reports', # (required) name of the file
+    extension: 'xls' # (require) extension of the file
+  }
+}) %>
+```
+
+This will generate the spinner and it will redirect the user to download the file when it is ready.
+
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at [https://github.com/myfreecomm/nexaas-async-collector](https://github.com/myfreecomm/nexaas-async-collector). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
