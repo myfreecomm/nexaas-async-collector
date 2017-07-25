@@ -9,6 +9,7 @@ appraise "rails-4-2" do
   gem "test-unit", "~> 3.0"
   gem "sqlite3", "1.3.13"
   gem "rails-controller-testing"
+  gem 'responders', '~> 2.0'
 end
 
 appraise "rails-5-1" do
@@ -16,4 +17,5 @@ appraise "rails-5-1" do
   gem "test-unit", "~> 3.0"
   gem "sqlite3", "1.3.13"
   gem "rails-controller-testing"
+  gem 'responders', '~> 2.0'
 end

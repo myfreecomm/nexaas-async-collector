@@ -1,7 +1,7 @@
 <script type="text/javascript" id="js-nexaas-async-collector-<%= unique_id %>">
   var requestContent = function() {
     $.ajax({
-      url: '<%= nexaas_async_collector.async_resource_path(@collect_id) %>',
+      url: '<%= nexaas_async_collector.async_resource_path(collect_id) %>',
       dataType: 'script',
       data: { unique_id: '<%= unique_id %>' }
     })

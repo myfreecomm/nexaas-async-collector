@@ -4,20 +4,20 @@ module Nexaas
   module Async
     module Collector
       class AsyncResourceController < ApplicationController
+        respond_to :all
+
         def show
           @result = Result.new(collector_scope.id, params[:id])
           @unique_id = params[:unique_id]
-          respond_to { |f| f.js }
+          if request.format.symbol == :js
+            render :show
+          end
         end
 
         private
 
-        def nexaas_async_collector_scope
-          Nexaas::Async::Collector.scope
-        end
-
         def collector_scope
-          send(nexaas_async_collector_scope)
+          send(Nexaas::Async::Collector.scope)
         end
       end
     end

@@ -10,6 +10,24 @@ describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
       expect(assigns(:unique_id)).to eq('abcdef')
     end
 
+    it 'instantiates Result object' do
+      allow(controller).to receive(:current_user) { double(id: 1234) }
+      xhr_request :get, :show, id: 'abcde', unique_id: 'abcdef'
+      expect(assigns(:result)).to be_instance_of(Nexaas::Async::Collector::Result)
+    end
+
+    it 'renders show template' do
+      allow(controller).to receive(:current_user) { double(id: 1234) }
+      xhr_request :get, :show, id: 'abcde', unique_id: 'abcdef'
+      expect(response).to render_template('nexaas/async/collector/async_resource/show')
+    end
+
+    context "when format is different from js" do
+      xit 'sends data in stream' do
+        
+      end
+    end
+
     context "when scope configuration is as default" do # invokes current_user method
       it 'instantiates the result object with correct data' do
         allow(controller).to receive(:current_user) { double(id: 1234) }
