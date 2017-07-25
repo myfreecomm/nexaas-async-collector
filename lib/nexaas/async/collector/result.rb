@@ -31,15 +31,15 @@ module Nexaas
         end
 
         def filename
-          object && object['file'] && object['file']['filename']
+          object && object.dig('file', 'filename')
         end
 
         def content_type
-          object && object['file'] && object['file']['content_type']
+          object && object.dig('file', 'content_type')
         end
 
         def extension
-          object && object['file'] && object['file']['extension']
+          object && object.dig('file', 'extension')
         end
 
         private
