@@ -39,7 +39,7 @@ describe Nexaas::Async::Collector::AsyncResourceController, type: :controller do
 
         it 'sends data in stream' do
           expect(controller).to receive(:send_data).with('{}', {
-            filename: result.filename, type: result.content_type,
+            filename: 'testing.json', type: result.content_type,
             disposition: 'attachment'
           }).and_call_original
           send_request :get, :show, id: 'abcde', unique_id: 'abcdef', format: 'json'
