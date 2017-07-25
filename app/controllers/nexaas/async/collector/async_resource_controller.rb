@@ -19,7 +19,7 @@ module Nexaas
           format.js { render :show }
           format.all do
             send_data(@result.content, {
-              filename: @result.filename, type: @result.content_type,
+              filename: "#{@result.filename}.#{@result.extension}", type: @result.content_type,
               disposition: 'attachment'
             })
           end
