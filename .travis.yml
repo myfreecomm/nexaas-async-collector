@@ -12,3 +12,7 @@ before_install: gem install bundler -v 1.15.0
 script: bundle exec rake spec
 services:
   - redis-server
+matrix:
+  exclude:
+    - rvm: 2.4.1
+      gemfile: gemfiles/rails_3_2.gemfile
