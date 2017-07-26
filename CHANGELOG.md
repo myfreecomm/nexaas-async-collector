@@ -1,4 +1,9 @@
-### 3.0.0 - 2017-07-20
+### 3.1.0 - 2017-07-26
+
+* Feature
+  * Add ability to download content in any format [#21](https://github.com/myfreecomm/nexaas-async-collector/pull/21)
+
+### 3.0.1 - 2017-07-20
 
 * Bug fixes
   * Allow multiples collectors in the same page [#19](https://github.com/myfreecomm/nexaas-async-collector/pull/19)
