@@ -3,18 +3,21 @@ module Nexaas
     module Collector
       class Persist
         class << self
-          def save(scope_id, key, value)
-            storage.set(key, content(scope_id, value))
-          end
-
-          def content(scope_id, value)
-            {
-              'scope_id' => scope_id,
-              'content' => value
-            }.to_json
+          def save(opts={})
+            opts = opts.with_indifferent_access
+            content = content_in_json(opts)
+            storage.set(opts[:collect_id], content)
           end
 
           private
+
+          def content_in_json(opts)
+            {
+              'scope_id' => opts[:scope_id],
+              'content' => opts[:content],
+              'file' => opts[:file]
+            }.to_json
+          end
 
           def storage
             InMemoryStorage.new

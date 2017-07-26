@@ -10,11 +10,17 @@ module Nexaas
           initialize_options(opts)
           start_time = Time.current.to_i
           instrument_start(start_time)
-          Persist.save(@scope_id, @collect_id, generate_content)
+          Persist.save(sliced_options(opts))
           instrument_finish(start_time)
         end
 
         private
+
+        def sliced_options(opts={})
+          opts.with_indifferent_access
+            .slice('collect_id', 'scope_id', 'file')
+            .merge('content' => generate_content)
+        end
 
         def initialize_options(opts)
           opts.each do |k, v|

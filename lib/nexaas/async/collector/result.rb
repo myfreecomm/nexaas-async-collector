@@ -11,7 +11,7 @@ module Nexaas
     module Collector
       class Result
 
-        attr_reader :scope_id, :id, :content
+        attr_reader :scope_id, :id, :object
 
         def initialize(scope_id, id)
           @scope_id = scope_id
@@ -19,11 +19,27 @@ module Nexaas
         end
 
         def content
-          _content['content'] if content_is_ready?
+          object['content'] if content_is_ready?
         end
 
         def content_is_ready?
-          _content && _content['scope_id'] == scope_id && _content['content']
+          object && object['scope_id'] == scope_id && object['content']
+        end
+
+        def is_file?
+          object && !object['file'].nil?
+        end
+
+        def filename
+          object && object.dig('file', 'name')
+        end
+
+        def content_type
+          object && object.dig('file', 'content_type')
+        end
+
+        def extension
+          object && object.dig('file', 'extension')
         end
 
         private
@@ -32,9 +48,10 @@ module Nexaas
           @storage ||= InMemoryStorage.new
         end
 
-        def _content
-          @_content ||= storage.get(id)
-          @content ||= JSON.parse(@_content) if @_content
+        def object
+          return @object if @object
+          @_object = storage.get(id)
+          @object = JSON.parse(@_object) if @_object
         end
 
         def url
