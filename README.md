@@ -7,7 +7,7 @@
 
 Agnostic collector and generator of async content for Rails apps. Used in production in a few [Nexaas](www.nexaas.com) systems.
 
-This gems is compatible with Ruby 2.3+ and Rails 3.2+.
+This gems is compatible with Ruby 2.3+ (we do not ensure it works in previous versions) and Rails 3.2+.
 
 ## Prerequisites
 The prerequisites of this project are:
