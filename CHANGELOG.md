@@ -1,3 +1,10 @@
+### 3.2.0 - 2017-07-27
+
+* Feature
+  * Ruby support for only one version of 2.3.X and add support for ruby 2.4.0 [#22](https://github.com/myfreecomm/nexaas-async-collector/pull/22)
+* Bug fixes
+  * Use Base64 to avoid encoding convertion error. [#23](https://github.com/myfreecomm/nexaas-async-collector/pull/23)
+
 ### 3.1.0 - 2017-07-26
 
 * Feature
