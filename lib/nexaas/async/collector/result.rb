@@ -19,7 +19,7 @@ module Nexaas
         end
 
         def content
-          object['content'] if content_is_ready?
+          Base64.decode64(object['content']) if content_is_ready?
         end
 
         def content_is_ready?

@@ -14,7 +14,7 @@ module Nexaas
           def content_in_json(opts)
             {
               'scope_id' => opts[:scope_id],
-              'content' => opts[:content],
+              'content' => Base64.encode64(opts[:content].to_s),
               'file' => opts[:file]
             }.to_json
           end

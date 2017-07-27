@@ -6,12 +6,12 @@ describe Nexaas::Async::Collector::Result do
     { 'scope_id' => 1892, 'content' => nil }.to_json
   }
   let(:ready_content) {
-    { 'scope_id' => 1893, 'content' => '<html></html>' }.to_json
+    { 'scope_id' => 1893, 'content' => Base64.encode64('<html></html>') }.to_json
   }
 
   let(:file_content) {
     {
-      'scope_id' => 1893, 'content' => '<html></html>',
+      'scope_id' => 1893, 'content' => Base64.encode64('<html></html>'),
       'file' => {
         'content_type' => 'text/html',
         'name' => 'index',

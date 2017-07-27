@@ -17,7 +17,7 @@ describe Nexaas::Async::Collector::Persist do
     it 'invokes InMemoryStorage#set' do
       expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
         'scope_id' => '123',
-        'content' => '<html></html>',
+        'content' => Base64.encode64('<html></html>'),
         'file' => nil
       }.to_json)
       described_class.save(opts)
@@ -29,7 +29,7 @@ describe Nexaas::Async::Collector::Persist do
       it 'invokes InMemoryStorage#set' do
         expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
           scope_id: '123',
-          content: '<html></html>',
+          content: Base64.encode64('<html></html>'),
           file: { content_type: 'text/html', name: 'index' }
         }.to_json)
         described_class.save(opts)
