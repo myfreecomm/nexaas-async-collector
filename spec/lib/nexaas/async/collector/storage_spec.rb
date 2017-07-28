@@ -26,5 +26,10 @@ describe Nexaas::Async::Collector::Storage do
       subject.set("foo", "land", 20)
       expect(subject.get("foo")).to eq("land")
     end
+
+    it 'uses MULTI/EXEC to execute commands atomically in redis' do
+      expect_any_instance_of(Redis).to receive(:multi).and_call_original
+      subject.set('foo', 'land', 90)
+    end
   end
 end
