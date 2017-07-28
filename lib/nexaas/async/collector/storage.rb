@@ -1,7 +1,7 @@
 module Nexaas
   module Async
     module Collector
-      class InMemoryStorage
+      class Storage
 
         def get(key)
           Sidekiq.redis_pool.with do |connection|

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Nexaas::Async::Collector::InMemoryStorage do
+describe Nexaas::Async::Collector::Storage do
   subject { described_class.new }
 
   describe "#get" do

@@ -7,7 +7,7 @@ module Nexaas
 
         def initialize(opts={})
           @opts = opts.with_indifferent_access
-          @storage = InMemoryStorage.new
+          @storage = Storage.new
         end
 
         def self.save(opts={})

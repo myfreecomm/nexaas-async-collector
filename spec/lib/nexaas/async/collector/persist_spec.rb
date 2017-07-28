@@ -10,13 +10,13 @@ describe Nexaas::Async::Collector::Persist do
       }
     end
 
-    it 'instantiates a new InMemoryStorage object' do
-      expect(Nexaas::Async::Collector::InMemoryStorage).to receive(:new) { double(set: true) }
+    it 'instantiates a new Storage object' do
+      expect(Nexaas::Async::Collector::Storage).to receive(:new) { double(set: true) }
       described_class.save(opts)
     end
 
-    it 'invokes InMemoryStorage#set' do
-      expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
+    it 'invokes Storage#set' do
+      expect_any_instance_of(Nexaas::Async::Collector::Storage).to receive(:set).with('abcdf', {
         scope_id: '123',
         content: Base64.encode64('<html></html>'),
         file: nil
@@ -27,8 +27,8 @@ describe Nexaas::Async::Collector::Persist do
     context 'when file option is present' do
       before { opts[:file] = { content_type: 'text/html', name: 'index' } }
 
-      it 'invokes InMemoryStorage#set' do
-        expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
+      it 'invokes Storage#set' do
+        expect_any_instance_of(Nexaas::Async::Collector::Storage).to receive(:set).with('abcdf', {
           scope_id: '123',
           content: Base64.encode64('<html></html>'),
           file: { content_type: 'text/html', name: 'index' }
@@ -41,8 +41,8 @@ describe Nexaas::Async::Collector::Persist do
       before { Nexaas::Async::Collector.expiration = 200 }
       after { Nexaas::Async::Collector.expiration = expiration }
 
-      it 'invokes InMemoryStorage#set with expiration set by user' do
-        expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
+      it 'invokes Storage#set with expiration set by user' do
+        expect_any_instance_of(Nexaas::Async::Collector::Storage).to receive(:set).with('abcdf', {
           scope_id: '123',
           content: Base64.encode64('<html></html>'),
           file: nil
@@ -52,8 +52,8 @@ describe Nexaas::Async::Collector::Persist do
     end
 
     context 'when expiration option is set by user locally (as option)' do
-      it 'invokes InMemoryStorage#set with expiration set by user' do
-        expect_any_instance_of(Nexaas::Async::Collector::InMemoryStorage).to receive(:set).with('abcdf', {
+      it 'invokes Storage#set with expiration set by user' do
+        expect_any_instance_of(Nexaas::Async::Collector::Storage).to receive(:set).with('abcdf', {
           scope_id: '123',
           content: Base64.encode64('<html></html>'),
           file: nil
