@@ -32,6 +32,10 @@ module Nexaas
       mattr_accessor :parent_controller
       @@parent_controller = '::ActionController::Base'
 
+      # Sets expiration (in seconds) for content in database
+      mattr_accessor :expiration
+      @@expiration = 600 # 10 minutes
+
       def self.configure
         yield self
       end

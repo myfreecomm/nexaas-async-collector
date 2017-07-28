@@ -2,27 +2,35 @@ module Nexaas
   module Async
     module Collector
       class Persist
-        class << self
-          def save(opts={})
-            opts = opts.with_indifferent_access
-            content = content_in_json(opts)
-            storage.set(opts[:collect_id], content)
-          end
 
-          private
+        attr_reader :opts, :storage
 
-          def content_in_json(opts)
-            {
-              'scope_id' => opts[:scope_id],
-              'content' => (opts[:content] ? Base64.encode64(opts[:content].to_s) : nil),
-              'file' => opts[:file]
-            }.to_json
-          end
+        def initialize(opts={})
+          @opts = opts.with_indifferent_access
+          @storage = InMemoryStorage.new
+        end
 
+        def self.save(opts={})
+          new(opts).save
+        end
 
-          def storage
-            InMemoryStorage.new
-          end
+        def save
+          content = content_in_json(opts)
+          storage.set(opts[:collect_id], content, expiration)
+        end
+
+        private
+
+        def content_in_json(opts)
+          {
+            'scope_id' => opts[:scope_id],
+            'content' => (opts[:content] ? Base64.encode64(opts[:content].to_s) : nil),
+            'file' => opts[:file]
+          }.to_json
+        end
+
+        def expiration
+          opts[:expiration] || Nexaas::Async::Collector.expiration
         end
       end
     end

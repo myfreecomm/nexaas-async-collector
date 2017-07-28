@@ -9,11 +9,11 @@ module Nexaas
           end
         end
 
-        def set(key, value, expiration=nil)
+        def set(key, value, expiration)
           Sidekiq.redis_pool.with do |connection|
             key = namespaced_key(key)
             connection.set(key, value)
-            connection.expire(key, expiration) if expiration
+            connection.expire(key, expiration)
           end
         end
 
