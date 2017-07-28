@@ -1,6 +1,6 @@
 require 'sidekiq'
 require "nexaas/async/collector/engine"
-require "nexaas/async/collector/in_memory_storage"
+require "nexaas/async/collector/storage"
 require "nexaas/async/collector/result"
 require "nexaas/async/collector/persist"
 
@@ -31,6 +31,10 @@ module Nexaas
       # inherit from
       mattr_accessor :parent_controller
       @@parent_controller = '::ActionController::Base'
+
+      # Sets expiration (in seconds) for content in database
+      mattr_accessor :expiration
+      @@expiration = 600 # 10 minutes
 
       def self.configure
         yield self

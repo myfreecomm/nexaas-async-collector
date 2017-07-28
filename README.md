@@ -53,6 +53,9 @@ $ gem install nexaas-async-collector
 
     # The parent class of all nexaas-async-collector controller
     config.parent_controller = "::ActionController::Base"
+
+    # The expiration of the data in seconds
+    config.expiration = 600
   end
 ```
 
@@ -74,7 +77,8 @@ end
   class_name: ModelService, # (required) name of the class
   class_method: :model_method, # (required) name of the class method responsible to generate data
   args: [arg1, arg2], # (optional) arguments to be passed to class method
-  instrumentation_context: 'my.custom.instrumentation' # (optional) context of the instrumentation name. It will generate two instrumentation: 'my.custom.instrumentation.start' and 'my.custom.instrumentation.finish'
+  instrumentation_context: 'my.custom.instrumentation', # (optional) context of the instrumentation name. It will generate two instrumentation: 'my.custom.instrumentation.start' and 'my.custom.instrumentation.finish'
+  expiration: 180 # (optional) this local expiration will overwrite global expiration for this particular data generation
 }) %>
 ```
 
@@ -99,6 +103,10 @@ If you want to export something to `xls` file, for example:
 ```
 
 This will generate the spinner and it will redirect the user to download the file when it is ready.
+
+## Redis configuration
+
+If you are sharing your Redis server between important information (e.g., Sidekiq data) and temporary information (e.g., `nexaas-async-collector` data), we suggest you to set the [`maxmemory-policy` eviction policy in Redis](https://redis.io/topics/lru-cache) to `volatile-lru` or `volatile-ttl`.
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at [https://github.com/myfreecomm/nexaas-async-collector](https://github.com/myfreecomm/nexaas-async-collector). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.

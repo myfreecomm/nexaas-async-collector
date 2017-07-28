@@ -25,6 +25,10 @@ describe Nexaas::Async::Collector do
     it { expect(described_class.parent_controller).to eq('::ActionController::Base') }
   end
 
+  describe '.expiration' do
+    it { expect(described_class.expiration).to eq(600) }
+  end
+
   describe '.configure' do
     it 'accepts a block to configure gem options' do
       described_class.configure do |c|

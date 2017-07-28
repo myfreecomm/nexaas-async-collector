@@ -11,11 +11,12 @@ module Nexaas
     module Collector
       class Result
 
-        attr_reader :scope_id, :id, :object
+        attr_reader :scope_id, :id, :object, :storage
 
         def initialize(scope_id, id)
           @scope_id = scope_id
           @id = id
+          @storage = Storage.new
         end
 
         def content
@@ -43,10 +44,6 @@ module Nexaas
         end
 
         private
-
-        def storage
-          @storage ||= InMemoryStorage.new
-        end
 
         def object
           return @object if @object
