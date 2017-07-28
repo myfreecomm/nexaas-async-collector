@@ -6,7 +6,7 @@
     window.location.href = '<%= async_resource_path(params[:id], format: @result.extension) %>';
   <% else %>
     $('#js-nexaas-async-collector-loading-<%= @unique_id %>').remove();
-    $('#js-nexaas-async-collector-<%= @unique_id %>').parent().append("<%= escape_javascript(@result.content.html_safe) %>");
+    $('#js-nexaas-async-collector-<%= @unique_id %>').parent().append("<%= escape_javascript(@result.content.force_encoding('UTF-8').html_safe) %>");
     $('#js-nexaas-async-collector-<%= @unique_id %>').remove()
     $('#js-nexaas-async-collector-style-<%= @unique_id %>').remove()
   <% end %>
