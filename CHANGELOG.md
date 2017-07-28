@@ -1,3 +1,10 @@
+### 3.3.0 - 2017-07-28
+
+* Feature
+  * Allow user to set global/local expiration for generated data [#26](https://github.com/myfreecomm/nexaas-async-collector/pull/26)
+* Bug fixes
+  * Force UTF-8 encoding when rendering content in view [#27](https://github.com/myfreecomm/nexaas-async-collector/pull/27)
+
 ### 3.2.0 - 2017-07-27
 
 * Feature
