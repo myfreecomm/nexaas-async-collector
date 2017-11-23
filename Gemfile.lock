@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nexaas-async-collector (3.3.0)
+    nexaas-async-collector (3.3.1)
       rails (>= 3.2)
       sidekiq (>= 4.2, < 6)
 
@@ -159,4 +159,4 @@ DEPENDENCIES
   timecop
 
 BUNDLED WITH
-   1.15.3
+   1.16.0

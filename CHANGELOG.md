@@ -1,3 +1,8 @@
+### 3.3.1 - 2017-11-23
+
+* Bug fixes
+  * Fix bug when trying to download data through browser [#28](https://github.com/myfreecomm/nexaas-async-collector/pull/28)
+
 ### 3.3.0 - 2017-07-28
 
 * Feature
