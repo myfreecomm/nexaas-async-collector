@@ -1,4 +1,7 @@
 <script type="text/javascript" id="js-nexaas-async-collector-<%= unique_id %>">
+  if (!!window.nexaas_async_interval)
+    clearInterval(window.nexaas_async_interval);
+
   var requestContent = function() {
     $.ajax({
       url: '<%= nexaas_async_collector.async_resource_path(collect_id) %>',
