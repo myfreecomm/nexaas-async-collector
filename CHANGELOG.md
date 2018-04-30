@@ -1,3 +1,8 @@
+### 3.3.2 - 2018-04-30
+
+* Bug fixes
+  * Clear interval when rendering loading and the interval already exists [#29](https://github.com/myfreecomm/nexaas-async-collector/pull/29)
+
 ### 3.3.1 - 2017-11-23
 
 * Bug fixes
