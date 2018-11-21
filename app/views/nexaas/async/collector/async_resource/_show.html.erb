@@ -1,16 +1,44 @@
 <script type="text/javascript" id="js-nexaas-async-collector-<%= unique_id %>">
-  if (!!window.nexaas_async_interval)
-    clearInterval(window.nexaas_async_interval);
+  (function registerCollector(id, path) {
+    window.nexaas_async_collector = window.nexaas_async_collector || {};
 
-  var requestContent = function() {
-    $.ajax({
-      url: '<%= nexaas_async_collector.async_resource_path(collect_id) %>',
-      dataType: 'script',
-      data: { unique_id: '<%= unique_id %>' }
-    })
-  }
+    var collector = window.nexaas_async_collector[id];
+    var isCollectorPresent = !!collector;
 
-  window.nexaas_async_interval = setInterval(requestContent, 3000);
+    if (isCollectorPresent) {
+      clearInterval(collector.interval);
+    }
+
+    var requestContent = function() {
+      $.ajax({
+        url: path,
+        dataType: 'script',
+        data: { unique_id: id }
+      })
+    };
+
+    var removeLoader = function(self) {
+      clearInterval(self.interval);
+      $('#js-nexaas-async-collector-loading-' + id).remove();
+      $('#js-nexaas-async-collector-style-' +  id).remove();
+    };
+
+    window.nexaas_async_collector[id] = {
+      interval: setInterval(requestContent, 3000),
+
+      collectHTML: function(html) {
+        removeLoader(this);
+        var $collector = $('#js-nexaas-async-collector-' + id);
+        $collector.parent().append(html);
+        $collector.remove();
+      },
+
+      collectUrl: function(url) {
+        removeLoader(this);
+        window.location.href = url;
+      }
+    };
+  })('<%= unique_id %>', '<%= nexaas_async_collector.async_resource_path(collect_id) %>');
 </script>
 
 <%= render partial: "nexaas/async/collector/async_resource/loading", locals: { unique_id: unique_id } %>
