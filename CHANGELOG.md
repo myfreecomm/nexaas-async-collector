@@ -1,3 +1,8 @@
+### 3.3.3 - 2018-11-29
+
+* Bug fixes
+  * Avoid override collector script when there are many collectors on same page[#30](https://github.com/myfreecomm/nexaas-async-collector/pull/30)
+
 ### 3.3.2 - 2018-04-30
 
 * Bug fixes
