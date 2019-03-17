@@ -10,3 +10,4 @@ spec/dummy/Gemfile.lock
 .ruby-version
 .ruby-gemset
 gemfiles/*.lock
+Gemfile.lock
